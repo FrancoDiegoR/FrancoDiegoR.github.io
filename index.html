@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franco Rioja — Ingeniero de Software</title>
+<meta name="description" content="Portafolio de Franco Rioja, estudiante de Ingeniería de Software en la UPC. Frontend, desarrollo móvil y seguridad web.">
+<!-- TODO: cuando tengas dominio, cambia esta URL y agrega una imagen de preview (1200x630) -->
+<meta property="og:title" content="Franco Rioja — Ingeniero de Software">
+<meta property="og:description" content="Frontend, desarrollo móvil y seguridad web.">
+<!-- <meta property="og:image" content="assets/og-preview.png"> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0e13;
+    --bg-2:#11161e;
+    --card:#141a23;
+    --line:#222b38;
+    --text:#e6ebf2;
+    --muted:#8b97a8;
+    --accent:#5cf2b0;      /* verde terminal */
+    --accent-2:#7aa2ff;    /* azul */
+    --warn:#ffcc66;
+    --radius:14px;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --sans:'Space Grotesk', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);background:var(--bg);color:var(--text);
+    line-height:1.6;-webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(circle at 15% 0%, rgba(92,242,176,.07), transparent 40%),
+      radial-gradient(circle at 90% 30%, rgba(122,162,255,.06), transparent 40%);
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .mono{font-family:var(--mono)}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(11,14,19,.8);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:var(--mono);font-weight:700;font-size:15px}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:28px;font-size:14px;color:var(--muted)}
+  .nav-links a:hover{color:var(--accent)}
+  .nav-links a::before{content:attr(data-n);font-family:var(--mono);color:var(--accent);margin-right:6px;font-size:12px}
+  @media(max-width:720px){.nav-links{display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:96px 0 80px}
+  .hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:center}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
+  .prompt{font-family:var(--mono);color:var(--accent);font-size:14px;margin-bottom:18px}
+  .prompt .cursor{display:inline-block;width:8px;height:16px;background:var(--accent);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  h1{font-size:clamp(40px,6vw,64px);line-height:1.05;letter-spacing:-.02em;font-weight:700}
+  h1 .grad{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{color:var(--muted);font-size:18px;margin:22px 0 32px;max-width:560px}
+  .btns{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 20px;border-radius:10px;font-weight:600;font-size:15px;
+    border:1px solid var(--line);transition:.2s;
+  }
+  .btn:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .btn.primary{background:var(--accent);color:#06130d;border-color:var(--accent)}
+  .btn.primary:hover{box-shadow:0 8px 30px rgba(92,242,176,.25)}
+  .btn svg{width:18px;height:18px}
+
+  /* Terminal card */
+  .term{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;font-family:var(--mono);font-size:13.5px;
+    box-shadow:0 20px 60px rgba(0,0,0,.4);
+  }
+  .term-bar{display:flex;gap:7px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--bg-2)}
+  .term-bar i{width:11px;height:11px;border-radius:50%;background:#ff5f57}
+  .term-bar i:nth-child(2){background:#febc2e}
+  .term-bar i:nth-child(3){background:#28c840}
+  .term-body{padding:18px 20px;line-height:1.9}
+  .term-body .k{color:var(--accent-2)}
+  .term-body .s{color:var(--accent)}
+  .term-body .c{color:var(--muted)}
+
+  /* ---------- SECCIONES ---------- */
+  section{padding:80px 0;border-top:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:40px}
+  .sec-head .n{font-family:var(--mono);color:var(--accent);font-size:15px}
+  .sec-head h2{font-size:32px;letter-spacing:-.01em}
+
+  /* Sobre mí */
+  .about{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:start}
+  @media(max-width:860px){.about{grid-template-columns:1fr}}
+  .about p{color:var(--muted);margin-bottom:16px;font-size:17px}
+  .about p strong{color:var(--text);font-weight:600}
+  .photo{
+    aspect-ratio:1/1;border-radius:var(--radius);overflow:hidden;
+    border:1px solid var(--line);position:relative;
+  }
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* Placeholders (bórralos cuando pongas tu contenido) */
+  .ph{
+    width:100%;height:100%;min-height:160px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:6px;text-align:center;padding:16px;
+    border:2px dashed var(--warn);border-radius:inherit;color:var(--warn);
+    font-family:var(--mono);font-size:12.5px;background:rgba(255,204,102,.04);
+  }
+  .ph b{font-size:13.5px}
+
+  /* Stack */
+  .stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+  .stack-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .stack-card h3{font-size:16px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .stack-card h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:var(--mono);font-size:12px;padding:5px 10px;border-radius:6px;background:var(--bg-2);border:1px solid var(--line);color:var(--muted)}
+
+  /* Proyectos */
+  .projects{display:grid;gap:28px}
+  .project{
+    display:grid;grid-template-columns:1.1fr 1fr;gap:0;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    transition:.25s;
+  }
+  .project:hover{border-color:#2f3b4d;transform:translateY(-3px)}
+  .project:nth-child(even){grid-template-columns:1fr 1.1fr}
+  .project:nth-child(even) .p-media{order:2}
+  @media(max-width:860px){
+    .project,.project:nth-child(even){grid-template-columns:1fr}
+    .project:nth-child(even) .p-media{order:0}
+  }
+  .p-media{min-height:280px;background:var(--bg-2);padding:18px}
+  .p-media img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
+  .p-body{padding:32px}
+  .p-meta{font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:8px;letter-spacing:.03em}
+  .p-body h3{font-size:24px;margin-bottom:6px}
+  .p-role{font-size:14px;color:var(--accent-2);margin-bottom:14px}
+  .p-body p{color:var(--muted);font-size:15.5px;margin-bottom:14px}
+  .p-body ul{list-style:none;margin-bottom:18px}
+  .p-body li{color:var(--muted);font-size:14.5px;padding-left:20px;position:relative;margin-bottom:6px}
+  .p-body li::before{content:"▹";position:absolute;left:0;color:var(--accent)}
+  .p-links{display:flex;gap:16px;margin-top:18px;font-family:var(--mono);font-size:13px}
+  .p-links a{color:var(--text);border-bottom:1px solid var(--accent);padding-bottom:2px}
+  .p-links a:hover{color:var(--accent)}
+  .p-links a.todo{color:var(--warn);border-color:var(--warn)}
+
+  /* Seguridad / Investigación */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:860px){.two{grid-template-columns:1fr}}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+  .box .badge{display:inline-block;font-family:var(--mono);font-size:11.5px;padding:4px 10px;border-radius:20px;margin-bottom:14px;border:1px solid}
+  .badge.prog{color:var(--warn);border-color:rgba(255,204,102,.4);background:rgba(255,204,102,.06)}
+  .badge.done{color:var(--accent);border-color:rgba(92,242,176,.4);background:rgba(92,242,176,.06)}
+  .box h3{font-size:19px;margin-bottom:10px}
+  .box p{color:var(--muted);font-size:15px;margin-bottom:14px}
+
+  /* Timeline formación */
+  .timeline{border-left:2px solid var(--line);padding-left:28px;display:grid;gap:30px}
+  .tl-item{position:relative}
+  .tl-item::before{content:"";position:absolute;left:-36px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+  .tl-date{font-family:var(--mono);font-size:12.5px;color:var(--accent)}
+  .tl-item h3{font-size:18px;margin:4px 0}
+  .tl-item p{color:var(--muted);font-size:15px}
+
+  /* Contacto */
+  .contact{text-align:center;max-width:620px;margin:0 auto}
+  .contact h2{font-size:clamp(32px,5vw,48px);margin-bottom:16px;letter-spacing:-.02em}
+  .contact p{color:var(--muted);font-size:17px;margin-bottom:32px}
+  .socials{display:flex;justify-content:center;gap:14px;margin-top:28px}
+  .socials a{width:46px;height:46px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;transition:.2s;color:var(--muted)}
+  .socials a:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-3px)}
+  .socials svg{width:20px;height:20px}
+
+  footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+
+  /* Animación de entrada */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .prompt .cursor{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     GUÍA RÁPIDA
+     - Todo lo que está en recuadros AMARILLOS punteados (.ph) es un espacio
+       para que pongas tu contenido. Busca "TODO" en este archivo para verlos todos.
+     - Imágenes: crea una carpeta /assets junto a este index.html y pon ahí
+       tus archivos (foto.jpg, vitalcare.png, etc.).
+==================================================================== -->
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="logo">franco<span>@</span>rioja<span>:~$</span></a>
+    <div class="nav-links">
+      <a href="#sobre-mi" data-n="01.">Sobre mí</a>
+      <a href="#stack" data-n="02.">Stack</a>
+      <a href="#proyectos" data-n="03.">Proyectos</a>
+      <a href="#seguridad" data-n="04.">Seguridad</a>
+      <a href="#formacion" data-n="05.">Formación</a>
+      <a href="#contacto" data-n="06.">Contacto</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <div class="prompt">$ whoami<span class="cursor"></span></div>
+      <h1>Franco Rioja<br><span class="grad">Ingeniero de Software</span> en formación.</h1>
+      <p class="lead">
+        Estudiante de Ingeniería de Software en la UPC. Construyo frontends web y apps móviles
+        con arquitectura limpia (DDD), y me especializo en seguridad de aplicaciones web.
+      </p>
+      <div class="btns">
+        <a href="#proyectos" class="btn primary">Ver proyectos →</a>
+        <!-- TODO: pon tu CV en PDF en /assets/cv-franco-rioja.pdf -->
+        <a href="assets/cv-franco-rioja.pdf" class="btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+          Descargar CV
+        </a>
+      </div>
+    </div>
+
+    <div class="term reveal" aria-hidden="true">
+      <div class="term-bar"><i></i><i></i><i></i></div>
+      <div class="term-body">
+        <div><span class="c">// perfil.ts</span></div>
+        <div><span class="k">const</span> franco = {</div>
+        <div>&nbsp;&nbsp;ubicacion: <span class="s">"Lima, Perú"</span>,</div>
+        <div>&nbsp;&nbsp;carrera: <span class="s">"Ing. de Software — UPC"</span>,</div>
+        <div>&nbsp;&nbsp;frontend: [<span class="s">"Angular"</span>, <span class="s">"Vue 3"</span>],</div>
+        <div>&nbsp;&nbsp;movil: [<span class="s">"Kotlin"</span>, <span class="s">"Flutter"</span>],</div>
+        <div>&nbsp;&nbsp;seguridad: <span class="s">"HTB Web Pentesting"</span>,</div>
+        <div>&nbsp;&nbsp;buscando: <span class="s">"prácticas pre-profesionales"</span></div>
+        <div>};</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= SOBRE MÍ ================= -->
+<section id="sobre-mi">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="n">01.</span><h2>Sobre mí</h2></div>
+    <!-- Para volver a poner la foto: agrega <div class="photo reveal"><img src="assets/foto.jpg" alt="Franco Rioja"></div> después del primer div y quita el style de abajo -->
+    <div class="about" style="grid-template-columns:1fr;max-width:760px">
+      <div class="reveal">
+        <p>
+          Estoy en los últimos ciclos de <strong>Ingeniería de Software en la Universidad Peruana de Ciencias Aplicadas (UPC)</strong>.
+          He liderado equipos de desarrollo en proyectos académicos, tanto como <strong>líder de equipo</strong>
+          como <strong>Tech Lead Frontend</strong>, coordinando flujos con GitFlow y Conventional Commits.
+        </p>
+        <p>
+          Me gusta entender el <em>porqué</em> de cada decisión técnica. Por eso trabajo con
+          <strong>Domain-Driven Design (DDD)</strong> y bounded contexts en aplicaciones web.
+        </p>
+        <p>
+          En paralelo me formo en <strong>seguridad ofensiva web</strong> con Hack The Box Academy.
+          Busco mis <strong>prácticas pre-profesionales</strong> en desarrollo de software o seguridad.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STACK ================= -->
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="n">02.</span><h2>Stack técnico</h2></div>
+    <div class="stack">
+      <div class="stack-card reveal">
+        <h3><span class="dot"></span>Frontend web</h3>
+        <div class="tags">
+          <span class="tag">Angular</span><span class="tag">Vue 3</span><span class="tag">TypeScript</span>
+          <span class="tag">Angular Material</span><span class="tag">PrimeVue</span>
+          <span class="tag">Signals</span><span class="tag">Pinia</span><span class="tag">i18n</span>
+        </div>
+      </div>
+      <div class="stack-card reveal">
+        <h3><span class="dot" style="background:var(--accent-2)"></span>Móvil</h3>
+        <div class="tags">
+          <span class="tag">Kotlin</span><span class="tag">Jetpack Compose</span>
+          <span class="tag">Flutter</span><span class="tag">Dart</span>
+        </div>
+      </div>
+      <div class="stack-card reveal">
+        <h3><span class="dot" style="background:#c792ea"></span>Backend</h3>
+        <div class="tags">
+          <span class="tag">Java</span><span class="tag">Spring Boot</span>
+          <span class="tag">C#</span><span class="tag">.NET</span><span class="tag">REST APIs</span>
+        </div>
+      </div>
+      <div class="stack-card reveal">
+        <h3><span class="dot" style="background:#ff6b6b"></span>Seguridad</h3>
+        <div class="tags">
+          <span class="tag">Burp Suite</span><span class="tag">OWASP ZAP</span>
+          <span class="tag">Metasploit</span><span class="tag">OWASP Top 10</span>
+        </div>
+      </div>
+      <div class="stack-card reveal">
+        <h3><span class="dot" style="background:var(--warn)"></span>Prácticas</h3>
+        <div class="tags">
+          <span class="tag">DDD</span><span class="tag">Clean Architecture</span>
+          <span class="tag">Git / GitFlow</span><span class="tag">Conventional Commits</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROYECTOS ================= -->
+<section id="proyectos">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="n">03.</span><h2>Proyectos</h2></div>
+    <div class="projects">
+
+      <!-- VitalCare -->
+      <article class="project reveal">
+        <div class="p-media">
+          <img src="assets/vitalcare.png" alt="Panel principal de VitalCare" style="object-position:left top">
+        </div>
+        <div class="p-body">
+          <div class="p-meta">PROYECTO ACADÉMICO · EQUIPO BYTECORE</div>
+          <h3>VitalCare</h3>
+          <div class="p-role">Líder de equipo</div>
+          <p>Plataforma de monitoreo remoto de pacientes mediante parches inteligentes: alertas en tiempo real, gestión de pacientes, planes de suscripción y soporte, con interfaz bilingüe (ES/EN) y opciones de accesibilidad.</p>
+          <ul>
+            <li>Lideré al equipo y coordiné el flujo GitFlow: ramas de release, resolución de conflictos y merges.</li>
+            <li>Frontend en Angular con arquitectura por bounded contexts (DDD).</li>
+            <li>Creé un mini-curso complementario de fundamentos de Java para el equipo.</li>
+          </ul>
+          <div class="tags"><span class="tag">Angular</span><span class="tag">TypeScript</span><span class="tag">DDD</span><span class="tag">GitFlow</span></div>
+          <div class="p-links">
+            <a href="https://github.com/1ASI0729-2610-10177-ByteCore-VitalCare/VitalCare-Frontend" target="_blank" rel="noopener">Repo ↗</a>
+            <a href="https://vital-care-frontend.vercel.app/login" target="_blank" rel="noopener">Demo ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- MediTrack -->
+      <article class="project reveal">
+        <div class="p-media">
+          <img src="assets/meditrack.png" alt="Dashboard de MediTrack Sensor" style="object-position:left top">
+        </div>
+        <div class="p-body">
+          <div class="p-meta">PROYECTO ACADÉMICO · EQUIPO TBL</div>
+          <h3>MediTrack Sensor</h3>
+          <div class="p-role">Tech Lead Frontend</div>
+          <p>Plataforma de monitoreo para organizaciones de salud: gestión de establecimientos y seguimiento de dispositivos y transportes, con acceso por tipo de usuario e interfaz bilingüe (ES/EN).</p>
+          <ul>
+            <li>Definí la arquitectura y las convenciones del frontend como Tech Lead.</li>
+            <li>Estructuré el repositorio de documentación en capítulos modulares con Conventional Commits.</li>
+          </ul>
+          <div class="tags"><span class="tag">Vue 3</span><span class="tag">Pinia</span><span class="tag">PrimeVue</span><span class="tag">Chart.js</span><span class="tag">vue-i18n</span><span class="tag">DDD</span></div>
+          <div class="p-links">
+            <a href="https://github.com/1ASI0730-2610-12258-TBL-MediTrackSensor/MediTrackSensor-Frontend" target="_blank" rel="noopener">Repo ↗</a>
+            <a href="https://medi-track-sensor-frontend.vercel.app/login" target="_blank" rel="noopener">Demo ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- TODO: para agregar otro proyecto, copia un bloque <article class="project"> completo -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= SEGURIDAD ================= -->
+<section id="seguridad">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="n">04.</span><h2>Seguridad</h2></div>
+    <div class="two" style="grid-template-columns:1fr">
+      <div class="box reveal">
+        <span class="badge prog">● EN PROGRESO</span>
+        <!-- Cuando obtengas la certificación: cambia la clase "prog" por "done" y el texto por "● CERTIFICADO" -->
+        <h3>HTB Certified Web Exploitation Specialist (CWES)</h3>
+        <p>
+          Ruta <em>Web Penetration Tester</em> de Hack The Box Academy: requests y HTTP, Burp Suite
+          (Intruder, Repeater), OWASP ZAP, inyección de comandos, CORS mal configurado y bypass de
+          autenticación basada en cookies.
+        </p>
+        <div class="p-links">
+          <!-- TODO: link a tu perfil de HTB o al certificado -->
+          <a href="#" class="todo" target="_blank" rel="noopener">[ Perfil HTB ]</a>
+        </div>
+      </div>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FORMACIÓN ================= -->
+<section id="formacion">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="n">05.</span><h2>Formación</h2></div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-date">2022 — Presente</div>
+        <h3>Ingeniería de Software · UPC</h3>
+        <p>Universidad Peruana de Ciencias Aplicadas. Lima, Perú.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">En curso</div>
+        <h3>Web Penetration Tester Path · Hack The Box Academy</h3>
+        <p>Preparación para la certificación CWES.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACTO ================= -->
+<section id="contacto">
+  <div class="wrap contact reveal">
+    <div class="prompt" style="justify-content:center">$ ./contactar.sh</div>
+    <h2>Contacto</h2>
+    <p>Busco prácticas pre-profesionales en desarrollo de software o seguridad. Estoy disponible para conversar sobre oportunidades o proyectos.</p>
+    
+    <a href="mailto:francodiegorioja@gmail.com" class="btn primary" id="email-btn">francodiegorioja@gmail.com</a>
+    <div id="copied" class="mono" style="font-size:13px;color:var(--accent);height:20px;margin-top:10px;opacity:0;transition:.3s">✓ Correo copiado al portapapeles</div>
+    <div class="socials">
+      <a href="https://github.com/FrancoDiegoR" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.6 18.3 5 18.3 5c.7 1.6.3 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0023.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/franco-rioja" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 110-4.2 2.1 2.1 0 010 4.2zM7.1 20.5H3.6V9h3.5v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg>
+      </a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=francodiegorioja@gmail.com" target="_blank" rel="noopener" aria-label="Escribir por Gmail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="y"></span> Franco Rioja · Hecho a mano, sin frameworks.</div>
+</footer>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+  // Animación de aparición al hacer scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  // Copia el correo al hacer clic (por si el visitante no tiene app de correo configurada)
+  document.getElementById('email-btn').addEventListener('click', () => {
+    navigator.clipboard?.writeText('francodiegorioja@gmail.com').then(() => {
+      const c = document.getElementById('copied');
+      c.style.opacity = 1; setTimeout(() => c.style.opacity = 0, 2500);
+    }).catch(() => {});
+  });
+</script>
+</body>
+</html>
